@@ -1,0 +1,78 @@
+[
+  {
+    "player": {
+      "avatar": "https://images.chesscomfiles.com/uploads/v1/user/11177810.9dfc8d31.200x200o.9a9eccebc07c.png",
+      "player_id": 11177810,
+      "@id": "https://api.chess.com/pub/player/fabianocaruana",
+      "url": "https://www.chess.com/member/FabianoCaruana",
+      "name": "Fabiano Caruana",
+      "username": "fabianocaruana",
+      "title": "GM",
+      "followers": 15035,
+      "country": "https://api.chess.com/pub/country/US",
+      "last_online": 1694551837,
+      "joined": 1363533272,
+      "status": "premium",
+      "is_streamer": false,
+      "verified": false,
+      "league": "Crystal"
+    }
+  },
+  {
+    "player": {
+      "avatar": "https://images.chesscomfiles.com/uploads/v1/user/86419862.bd239f8f.200x200o.8d80de7afe67.png",
+      "player_id": 86419862,
+      "@id": "https://api.chess.com/pub/player/gmhikaruontwitch",
+      "url": "https://www.chess.com/member/GMHikaruOnTwitch",
+      "name": "Hikaru Nakamura",
+      "username": "gmhikaruontwitch",
+      "title": "GM",
+      "followers": 5146,
+      "country": "https://api.chess.com/pub/country/AT",
+      "last_online": 1690066983,
+      "joined": 1594472217,
+      "status": "premium",
+      "is_streamer": true,
+      "verified": false,
+      "league": "Champion"
+    }
+  },
+  {
+    "player": {
+      "avatar": "https://images.chesscomfiles.com/uploads/v1/user/3889224.121e2094.200x200o.361c2f8a59c2.jpg",
+      "player_id": 3889224,
+      "@id": "https://api.chess.com/pub/player/magnuscarlsen",
+      "url": "https://www.chess.com/member/MagnusCarlsen",
+      "name": "Magnus Carlsen",
+      "username": "magnuscarlsen",
+      "title": "GM",
+      "followers": 153315,
+      "country": "https://api.chess.com/pub/country/NO",
+      "location": "Norway",
+      "last_online": 1694533294,
+      "joined": 1282856720,
+      "status": "premium",
+      "is_streamer": false,
+      "verified": false,
+      "league": "Elite"
+    }
+  },
+  {
+    "player": {
+      "avatar": "https://images.chesscomfiles.com/uploads/v1/user/1647937.a5d958c4.200x200o.7dc97767c034.jpeg",
+      "player_id": 1647937,
+      "@id": "https://api.chess.com/pub/player/garrykasparov",
+      "url": "https://www.chess.com/member/GarryKasparov",
+      "name": "Garry Kasparov",
+      "username": "garrykasparov",
+      "title": "GM",
+      "followers": 5812,
+      "country": "https://api.chess.com/pub/country/RU",
+      "last_online": 1465294597,
+      "joined": 1229007872,
+      "status": "premium",
+      "is_streamer": false,
+      "verified": false
+    }
+  }
+]

@@ -3,7 +3,7 @@ from pathlib import Path as P
 
 import pytest
 
-from backend.apis import ChessDotComClient
+from backend.chessdotcom_api import ChessDotComClient
 
 chess_path = P(__file__).parent.parent / "data" / "chess.com"
 

@@ -1,0 +1,14 @@
+[
+  {
+    "outcome": "White Win",
+    "frequency": ".51"
+  },
+  {
+    "outcome": "Black Win",
+    "frequency": ".46"
+  },
+  {
+    "outcome": "Draw",
+    "frequency": ".03"
+  }
+]

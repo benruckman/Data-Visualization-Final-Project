@@ -34,6 +34,6 @@ def test_get_first_moves_2013_01():
 
 def test_get_all_file_paths():
     first_moves, aggregation = get_first_moves(file_paths, aggregate=True)
-    (chess_path / "first_moves" / "all.json").write_text(json.dumps(first_moves, indent=2))
+    (chess_path / "first_moves" / "too_large_all.json").write_text(json.dumps(first_moves, indent=2))
 
     (chess_path / "aggregation_of_first_moves" / "all.json").write_text(json.dumps(aggregation, indent=2))

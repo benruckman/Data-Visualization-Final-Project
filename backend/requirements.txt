@@ -4,3 +4,4 @@ pytest-asyncio~=0.21.1
 black~=23.9
 ruff==0.0.289
 isort~=5.12
+chess==1.10.0

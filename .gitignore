@@ -4,3 +4,13 @@ venv
 .pytest_cache
 .ruff_cache
 __pycache__
+lichess_db_standard_rated_2013-03.pgn
+lichess_db_standard_rated_2013-04.pgn
+lichess_db_standard_rated_2013-05.pgn
+lichess_db_standard_rated_2013-06.pgn
+lichess_db_standard_rated_2013-07.pgn
+lichess_db_standard_rated_2013-08.pgn
+lichess_db_standard_rated_2013-09.pgn
+lichess_db_standard_rated_2013-10.pgn
+lichess_db_standard_rated_2013-11.pgn
+lichess_db_standard_rated_2013-12.pgn

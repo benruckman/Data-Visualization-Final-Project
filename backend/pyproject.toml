@@ -1,0 +1,81 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "velvet_api.tests.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-cov --disable-warnings"
+log_cli_level = 10
+log_cli = true
+
+[tool.black]
+exclude = '''
+(
+  .*/migrations/.*
+  | .*/ml_models/.*
+)
+'''
+line-length = 120
+args = ["-C"]
+
+[tool.ruff]
+exclude = [
+    "*/migrations/*",
+    "ml_models/*",
+    "velvet_api/tests/settings.py"
+]
+
+select = ["ALL"]
+
+# https://beta.ruff.rs/docs/rules/
+ignore = [
+    "ARG", # flake8-unused-arguments
+    "COM", # flake8-commas
+    "D", # pydocstyle
+    "EM", # flake8-errmsg
+    "FBT", # flake8-boolean-trap
+    "FIX", # flake8-fixme
+    "I", # isort
+    "TD", # flake8-todo
+    "ANN002", # Missing type annotation for `*args`
+    "ANN003", # Missing type annotation for `**kwargs`
+    "ANN101", # Missing type annotation for `self` in method
+    "ANN102", # Missing type annotation for `cls` in classmethod
+    "ANN201", # Missing return type annotation for public function
+    "ANN202", # Missing return type annotation for private function
+    "ANN204", # Missing return type annotation for special method
+    "ANN205", # Missing return type annotation for staticmethod
+    "ANN206", # Missing return type annotation for classmethod
+    "B028", # flake8-bugbear No explicit stacklevel keyword argument found
+    "C408", # Unnecessary {obj_type} call (rewrite as a literal)
+    "C901", # mccabe: {name} is too complex ({complexity} > {max_complexity})
+    "DJ008", # flake8-django: Model does not define __str__ method
+    "E501", # Line too long ({width} > {limit} characters)
+    "G004", # flake8-logging-format Logging statement uses f-string
+    "N817", # pep8-naming: CamelCase {name} imported as acronym {asname}
+    "PERF401", # Use a list comprehension to create a transformed list
+    "PLR0911", # Too many branches ({branches} > {max_branches})
+    "PLR0912", # Too many return statements ({returns} > {max_returns})
+    "PLR0913", # Too many arguments to function call
+    "PLW2901", # `for` loop variable `key` overwritten by assignment target
+    "PT011", # flake-8 pytest.raises({exception}) is too broad, set the match parameter or use a more specific exception
+    "RET502", # Do not implicitly return None in function able to return non-None value
+    "RET503", # Missing explicit return at the end of function able to return non-None value
+    "RET504", # Unnecessary assignment to `new_focuses` before `return` statement
+    "RUF100", # Unused blanket `noqa` directive
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF013", # PEP 484 prohibits implicit `Optional`
+    "S301", # pickle and modules that wrap it can be unsafe when used to load untrusted data, possible security issue
+    "SIM102", # Use a single if statement instead of nested if statements
+    "SLF001", # flake8-self: Private member accessed
+    "TCH001", # Move application import {} into a type-checking block
+    "TCH002", # Move third-party import {} into a type-checking block
+    "TRY003", # Avoid specifying long messages outside the exception class
+]
+unfixable = ["ERA001"]
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+order_by_type = "False"
+skip = ["velvet_api/velvet_app/migrations/", "venv"]

@@ -3,6 +3,7 @@ from pathlib import Path as P
 import chess
 import chess.pgn
 
+import pandas as pd
 
 def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False):
     first_moves = []
@@ -38,3 +39,34 @@ def aggregate_first_moves(first_moves: list[dict]) -> dict:
 
 def format_num_2_digits(num: int) -> str:
     return f"0{num}" if num < 10 else str(num)
+
+
+def generate_dataframe():
+    game_count = 0
+    pgnPath = 'lichess_db_standard_rated_2013-01.pgn'
+    # What features do we need here?
+    games = pd.DataFrame(columns=['Date', 'AverageElo', 'Result', 'Opening', 'NumMoves'])
+
+
+    with open(pgnPath) as f:
+        # Limit number of games used for testing
+        while game_count < 15:
+            game = chess.pgn.read_game(f)
+
+            if game is None:
+                break
+
+            game_count += 1
+            game_info = []
+
+            game_info.append(game.headers["UTCDate"])
+            game_info.append((int(game.headers["WhiteElo"]) + int(game.headers["BlackElo"])) / 2)
+            result = game.headers["Result"]
+            game_info.append("White" if result == "1-0" else "Black" if result == "0-1" else "Draw")
+            game_info.append(game.headers["Opening"])
+            game_info.append(sum(1 for move in game.mainline_moves()))
+
+            games.loc[len(games.index)] = game_info
+
+
+

@@ -19,7 +19,7 @@ def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False):
 
         for game in games:
             for move in game.mainline_moves():
-                first_moves.append({"from": move.from_square, "to": move.to_square})
+                first_moves.append({"from": move.from_square, "to": move.to_square, "result": game.headers["Result"]})
                 break
     aggregation = aggregate_first_moves(first_moves) if aggregate else []
 
@@ -31,9 +31,13 @@ def aggregate_first_moves(first_moves: list[dict]) -> dict:
     for move in first_moves:
         move_string = f"{move['from']}, {move['to']}"
         if move_string not in aggregation:
-            aggregation[move_string] = {"count": 1}
+            aggregation[move_string] = {"count": 1, "wins": 0, "win_percentage": 0}
         else:
             aggregation[move_string]["count"] += 1
+        # Do win percentages here
+        aggregation[move_string]["wins"] += 1 if move["result"] == "1-0" else 0
+    for value in aggregation.values():
+        value["win_percentage"] = value["wins"] / value["count"]
     return aggregation
 
 

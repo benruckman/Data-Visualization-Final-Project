@@ -2,7 +2,7 @@ from pathlib import Path as P
 
 import chess
 import chess.pgn
-
+import json
 import pandas as pd
 
 def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False):
@@ -45,11 +45,10 @@ def format_num_2_digits(num: int) -> str:
     return f"0{num}" if num < 10 else str(num)
 
 
-def generate_dataframe():
+def generate_dataframe(month, pgnPath):
     game_count = 0
-    pgnPath = 'lichess_db_standard_rated_2013-01.pgn'
     # What features do we need here?
-    games = pd.DataFrame(columns=['Date', 'AverageElo', 'Result', 'Opening', 'NumMoves'])
+    games = pd.DataFrame(columns=['Date', 'AverageElo', 'Result', 'Opening', 'NumMoves', 'Month'])
 
 
     with open(pgnPath) as f:
@@ -69,8 +68,17 @@ def generate_dataframe():
             game_info.append("White" if result == "1-0" else "Black" if result == "0-1" else "Draw")
             game_info.append(game.headers["Opening"])
             game_info.append(sum(1 for move in game.mainline_moves()))
+            game_info.append(month)
 
             games.loc[len(games.index)] = game_info
+
+    return games
+
+
+def get_percent_results(month, data): # Returns a json object containing the proportions of wins for a specific month
+    result_props = data.loc[data['Month'] == month]['Result'].value_counts(normalize=True).to_dict()
+    result_props['Month'] = month
+    return(json.dumps(result_props))
 
 
 

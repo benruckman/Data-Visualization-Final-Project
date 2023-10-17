@@ -10,6 +10,10 @@ file_paths = [
     chess_path / "lichess_pgns" / f"lichess_db_standard_rated_2013-{format_num_2_digits(i)}.pgn" for i in range(1, 13)
 ]
 
+all_file_paths = [
+    chess_path / "lichess_pgns" / f"lichess_db_standard_rated_{year}-{format_num_2_digits(month)}.pgn" for year in range(2013, 2024) for month in range(1, 13)
+]
+
 
 def test_get_1000_first_moves_2013_01():
     first_moves, aggregation = get_first_moves(
@@ -37,3 +41,12 @@ def test_get_all_file_paths():
     (chess_path / "first_moves" / "too_large_all.json").write_text(json.dumps(first_moves, indent=2))
 
     (chess_path / "aggregation_of_first_moves" / "all.json").write_text(json.dumps(aggregation, indent=2))
+
+
+def test_get_all_file_paths_for_each_month():
+    paths = all_file_paths[:3]
+    for year in range(2013, 2024):
+        for month in range(1, 13):
+            first_moves, aggregation = get_first_moves(paths, aggregate=True)
+            (chess_path / "first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(first_moves, indent=2))
+            (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(aggregation, indent=2))

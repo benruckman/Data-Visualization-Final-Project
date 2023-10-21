@@ -29,3 +29,8 @@ fetchJSONFile('data/GameLengths.json', function (data) {
   const histogram = new HistogramChart(data);
   histogram.renderHistogramChart();
 });
+
+fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
+  const openingMoveWinRate = new CategoricalBarChart(data);
+  openingMoveWinRate.renderCategoricalBarChart();
+});

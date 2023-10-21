@@ -87,6 +87,25 @@ class HistogramChart {
       .append("g")
       .attr("class", "y-axis")
       .call(d3.axisLeft(y));
+
+    // X axis label
+    histogramChartSvg
+    .append("text")
+    .attr("class", "x-axis-label")
+    .attr("x", CHART_WIDTH / 2 - MARGIN.left)
+    .attr("y", CHART_HEIGHT) // Adjust the vertical position as needed
+    .style("text-anchor", "middle")
+    .text("Game Length");
+
+  // Y axis label
+  histogramChartSvg
+    .append("text")
+    .attr("class", "y-axis-label")
+    .attr("x", -CHART_HEIGHT / 2)
+    .attr("y", -MARGIN.left/2) // Adjust the horizontal position as needed
+    .attr("transform", "rotate(-90)")
+    .style("text-anchor", "middle")
+    .text("Number of Games");
   }
 
 }

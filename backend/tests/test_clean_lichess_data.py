@@ -44,9 +44,13 @@ def test_get_all_file_paths():
 
 
 def test_get_all_file_paths_for_each_month():
-    paths = all_file_paths[:3]
+    paths = all_file_paths[3:][:-4]
+    i = 0
     for year in range(2013, 2024):
         for month in range(1, 13):
-            first_moves, aggregation = get_first_moves(paths, aggregate=True)
+            if year == 2013 and month <= 3:
+                continue
+            first_moves, aggregation = get_first_moves([paths[i]], aggregate=True)
             (chess_path / "first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(first_moves, indent=2))
             (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(aggregation, indent=2))
+            i = i + 1

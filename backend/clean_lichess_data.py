@@ -53,9 +53,8 @@ def generate_dataframe(month, pgnPath):
 
 
     with open(pgnPath) as f:
-        # Limit number of games used for testing
-        while game_count < 15:
-            game = chess.pgn.read_game(f)
+        game = chess.pgn.read_game(f)
+        while game:
 
             if game is None:
                 break
@@ -64,7 +63,10 @@ def generate_dataframe(month, pgnPath):
             game_info = []
 
             game_info.append(game.headers["UTCDate"])
-            game_info.append((int(game.headers["WhiteElo"]) + int(game.headers["BlackElo"])) / 2)
+            try:
+                game_info.append((int(game.headers["WhiteElo"]) + int(game.headers["BlackElo"])) / 2)
+            except Exception:
+                game_info.append("???")
             result = game.headers["Result"]
             game_info.append("White" if result == "1-0" else "Black" if result == "0-1" else "Draw")
             game_info.append(game.headers["Opening"])
@@ -72,6 +74,7 @@ def generate_dataframe(month, pgnPath):
             game_info.append(month)
 
             games.loc[len(games.index)] = game_info
+            game = chess.pgn.read_game(f)
 
     return games
 
@@ -81,5 +84,8 @@ def get_percent_results(month, data): # Returns a json object containing the pro
     result_props['Month'] = month
     return(json.dumps(result_props))
 
-
+def game_length_frequencies(data):
+    dict = data['NumMoves'].value_counts().to_dict()
+    result = [{"length": k, "frequency": v} for k, v in dict.items()]
+    return json.dumps(result)
 

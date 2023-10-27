@@ -21,6 +21,16 @@ function fetchJSONFile (path, callback) {
 // call fetchJSONFile then build and render a tree
 // this is the function executed as a callback when parsing is done
 fetchJSONFile('data/GameOutcomes.json', function (data) {
-  const tree = new PieChart(data);
-  tree.renderPieChart();
+  const pie = new PieChart(data);
+  pie.renderPieChart();
+});
+
+fetchJSONFile('data/GameLengths.json', function (data) {
+  const histogram = new HistogramChart(data);
+  histogram.renderHistogramChart();
+});
+
+fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
+  const openingMoveWinRate = new CategoricalBarChart(data);
+  openingMoveWinRate.renderCategoricalBarChart();
 });

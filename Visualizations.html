@@ -5,13 +5,98 @@
   <meta charset="utf-8">
   <title>Visualizations</title>
   <style>
+    /* style div and headers */
+    .chart,
+    h2 {
+      text-align: center;
+    }
 
+    .row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toolbox span {
+      padding: 5px;
+    }
+
+    /* style of histogram charts */
+    .histogram rect {
+      fill: rgb(79, 175, 211);
+    }
+
+    .histogram .bar:hover {
+      fill: #979696;
+    }
+
+    /* style of bar charts */
+    .bar-chart rect {
+      fill: rgb(79, 175, 211);
+    }
+
+    .bar-chart .hovered {
+      fill: #979696;
+    }
+
+    /* style of line charts */
+    .line-chart {
+      stroke: rgb(79, 175, 211);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    text {
+      fill: black;
+    }
+
+    /* style of area charts */
+    .area-chart {
+      fill: rgb(79, 175, 211);
+    }
+
+    /* style of scatter plot */
+    .scatter-plot circle {
+      fill: rgb(79, 175, 211);
+    }
+
+    .scatter-plot .hovered {
+      fill: #979696;
+    }
   </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="js/PieChart.js"></script>
+  <script src="js/HistogramChart.js"></script>
+  <script src="js/CategoricalBarChart.js"></script>
   <script src="js/script.js"></script>
 </head>
 
-<div id="pie-chart"></div>
+
+<div class="column">
+  <div class="row">
+    <div id="pie-chart" class="column"></div>
+
+    <div class="chart column">
+      <h2>Game length outcomes of 50 games</h2>
+      <div id="HistogramChart-div"></div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="chart column">
+      <h2>Opening Move Win rate</h2>
+      <div id="CategoricalBarChart-div"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 </html>

@@ -5,7 +5,7 @@ import chess.pgn
 import json
 import pandas as pd
 
-def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False):
+def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False, all: bool = True):
     first_moves = []
     i = 0
     for path in paths:
@@ -22,7 +22,8 @@ def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False):
                 first_moves.append({"from": move.from_square, "to": move.to_square, "result": game.headers["Result"]})
                 break
     aggregation = aggregate_first_moves(first_moves) if aggregate else []
-
+    if all:
+        return None, aggregation
     return first_moves, aggregation
 
 

@@ -48,7 +48,7 @@ def test_get_all_file_paths_for_each_month():
     i = 0
     for year in range(2015, 2024):
         for month in range(1, 13):
-            if year == 2015 and month <= 4:
+            if year == 2015 and month <= 10:
                 continue
             _, aggregation = get_first_moves([paths[i]], aggregate=True, all=False)
             # (chess_path / "first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(first_moves, indent=2))

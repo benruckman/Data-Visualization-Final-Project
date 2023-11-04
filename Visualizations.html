@@ -22,6 +22,36 @@
       flex-direction: column;
     }
 
+    .square {
+      width: 50px;
+      height: 50px;
+      float: left;
+    }
+
+    .white {
+      background-color: #f0d9b5;
+    }
+
+    .black {
+      background-color: #b58863;
+    }
+
+    .slider-container {
+        width: 50px;
+        height: 100%;
+    }
+
+    .slider {
+        width: 20px;
+        height: 300px;
+        background: linear-gradient(to bottom, #00FF00, #808080, #FF0000);
+    }
+    .slider-label {
+        width: 50px;
+        text-align: right;
+        color: white;
+    }
+
     .toolbox span {
       padding: 5px;
     }
@@ -68,11 +98,22 @@
     .scatter-plot .hovered {
       fill: #979696;
     }
+
+    input[type=range][orient=vertical] {
+      appearance: slider-vertical;
+      height: 400px;
+    }
+
+    .boardDataSelection {
+      margin: 20px;
+    }
+
   </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="js/PieChart.js"></script>
   <script src="js/HistogramChart.js"></script>
   <script src="js/CategoricalBarChart.js"></script>
+  <script src="js/ChessBoard.js"></script>
   <script src="js/script.js"></script>
 </head>
 
@@ -92,6 +133,24 @@
       <h2>Opening Move Win rate</h2>
       <div id="CategoricalBarChart-div"></div>
     </div>
+
+    <div class="column">
+      <div class="row" style="justify-content: center;">
+        <div class="boardDataSelection">
+          <label for="dataSelection">Select Dataset:</label>
+          <select name="dataSelection" id="dataSelection">
+            <option value="javascript">Most Popular Moves</option>
+            <option value="python">Best Moves</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="range"><input type="range" orient="vertical" value="0" min="-5" max="5"><p id="rangeValue"></p></div> 
+        <div id="chess-board"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 

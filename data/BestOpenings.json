@@ -1,0 +1,69 @@
+[
+    {
+      "12, 28": {
+        "count": 579,
+        "wins": 284,
+        "win_percentage": 0.4905008635578584
+      },
+      "11, 27": {
+        "count": 257,
+        "wins": 164,
+        "win_percentage": 0.6381322957198443
+      },
+      "9, 17": {
+        "count": 20,
+        "wins": 13,
+        "win_percentage": 0.65
+      },
+      "10, 26": {
+        "count": 24,
+        "wins": 11,
+        "win_percentage": 0.4583333333333333
+      },
+      "12, 20": {
+        "count": 25,
+        "wins": 8,
+        "win_percentage": 0.32
+      },
+      "1, 18": {
+        "count": 9,
+        "wins": 1,
+        "win_percentage": 0.1111111111111111
+      },
+      "6, 21": {
+        "count": 29,
+        "wins": 13,
+        "win_percentage": 0.4482758620689655
+      },
+      "11, 19": {
+        "count": 20,
+        "wins": 9,
+        "win_percentage": 0.45
+      },
+      "14, 22": {
+        "count": 13,
+        "wins": 10,
+        "win_percentage": 0.7692307692307693
+      },
+      "13, 21": {
+        "count": 4,
+        "wins": 1,
+        "win_percentage": 0.25
+      },
+      "13, 29": {
+        "count": 6,
+        "wins": 5,
+        "win_percentage": 0.8333333333333334
+      },
+      "10, 18": {
+        "count": 13,
+        "wins": 9,
+        "win_percentage": 0.6923076923076923
+      },
+      "9, 25": {
+        "count": 1,
+        "wins": 1,
+        "win_percentage": 1.0
+      }
+    }
+  ]

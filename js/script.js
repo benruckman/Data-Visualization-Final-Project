@@ -34,3 +34,8 @@ fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
   const openingMoveWinRate = new CategoricalBarChart(data);
   openingMoveWinRate.renderCategoricalBarChart();
 });
+
+fetchJSONFile('data/BestOpenings.json', function (data) {
+  const board = new ChessBoard(data);
+  board.renderChessBoard();
+});

@@ -1,7 +1,7 @@
 import json
 from pathlib import Path as P
 
-from backend.clean_lichess_data import format_num_2_digits, get_first_moves
+from backend.clean_lichess_data import format_num_2_digits, get_first_moves, optimized_get_aggregate_first_moves
 
 chess_path = P(__file__).parent.parent / "data" / "lichess"
 
@@ -17,7 +17,7 @@ all_file_paths = [
 
 def test_get_1000_first_moves_2013_01():
     first_moves, aggregation = get_first_moves(
-        [chess_path / "lichess_pgns" / "lichess_db_standard_rated_2013-01.pgn"], num=1000, aggregate=True
+        [all_file_paths[0]], num=1000, aggregate=True, all=False
     )
     (chess_path / "first_moves" / "1000_2013_01.json").write_text(json.dumps(first_moves, indent=2))
     (chess_path / "aggregation_of_first_moves" / "aggregation_1000_2013_01.json").write_text(
@@ -44,13 +44,24 @@ def test_get_all_file_paths():
 
 
 def test_get_all_file_paths_for_each_month():
-    paths = all_file_paths[24:][:-4]
-    i = 0
-    for year in range(2015, 2024):
-        for month in range(1, 13):
-            if year == 2015 and month <= 10:
+    paths = all_file_paths[:-4]
+    start_year = 2015
+    start_month = 0
+    for year in range(start_year, 2024):
+        for month in range(start_month, 13):
+            if year == start_year and month <= start_month:
                 continue
-            _, aggregation = get_first_moves([paths[i]], aggregate=True, all=False)
-            # (chess_path / "first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(first_moves, indent=2))
+            i = (year - 2013) * 12 + month - 1
+            print(i)
+            aggregation = optimized_get_aggregate_first_moves(paths[i])
             (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(aggregation, indent=2))
             i = i + 1
+
+
+def test_get_1000_first_moves_optimized_2013_01():
+    aggregation = optimized_get_aggregate_first_moves(
+        all_file_paths[0], num_games=1000
+    )
+    (chess_path / "aggregation_of_first_moves" / "aggregation_1000_2013_01.json").write_text(
+        json.dumps(aggregation, indent=2)
+    )

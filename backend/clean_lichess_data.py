@@ -5,6 +5,28 @@ import chess.pgn
 import json
 import pandas as pd
 
+def optimized_get_aggregate_first_moves(path: P, num_games: int = -1):
+    i = 0
+    aggregation = {}  # {"12, 28": {"count": 1}}
+    with path.open("r") as pgn:
+        while game := chess.pgn.read_game(pgn):
+            if i == num_games:
+                break
+            for move in game.mainline_moves():
+                move_string = f"{move.from_square}, {move.to_square}"
+                if move_string not in aggregation:
+                    aggregation[move_string] = {"count": 1, "wins": 0, "win_percentage": 0}
+                else:
+                    aggregation[move_string]["count"] += 1
+                aggregation[move_string]["wins"] += 1 if game.headers["Result"] == "1-0" else 0
+                
+                # first_moves.append({"from": move.from_square, "to": move.to_square, "result": game.headers["Result"]})
+                i += 1
+                break
+    for value in aggregation.values():
+        value["win_percentage"] = value["wins"] / value["count"]
+    return aggregation
+
 def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False, all: bool = True):
     first_moves = []
     i = 0
@@ -25,6 +47,7 @@ def get_first_moves(paths: list[P], num: int = -1, aggregate: bool = False, all:
     if all:
         return None, aggregation
     return first_moves, aggregation
+    
 
 
 def aggregate_first_moves(first_moves: list[dict]) -> dict:

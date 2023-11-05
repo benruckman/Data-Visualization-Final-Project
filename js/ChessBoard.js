@@ -5,12 +5,24 @@ class ChessBoard {
    */
   constructor(json) {
     this.openings = json;
+    this.maxSliderValue = 5;
+    this.lastPieceRemoved = null;
   }
 
   /**
    * Function that renders the chessboard
    */
-  renderChessBoard() {
+  renderChessBoard(value) {
+    // remove all previous moves
+    d3.selectAll('.move').remove();
+
+    if (this.lastPieceRemoved != null) {
+      // restore removed piece
+      d3.selectAll(".point" + this.lastPieceRemoved).selectAll("img")
+        .style("display", "block");
+    }
+    
+
     // Set the dimensions of the chessboard
     let boardSize = 8;
     let squareSize = 50;
@@ -32,7 +44,7 @@ class ChessBoard {
     let squareElements = chessboard.selectAll(".square")
       .data(squares)
       .enter().append("div")
-      .attr("class", function(d) { return "square " + d.color; })
+      .attr("class", function(d) { return "square " + d.color + " point" + (d.row*8 + d.col); })
       .style("width", squareSize + "px")
       .style("height", squareSize + "px")
       .style("line-height", squareSize + "px");
@@ -79,5 +91,34 @@ class ChessBoard {
           .style("position", "absolute");
       }
     });
+
+    
+    // Convert the JSON object to an array of objects
+    const data = Object.entries(this.openings[0]);
+    // Sort the array based on the win_percentage property in descending order
+    data.sort((a, b) => b[1].count - a[1].count);
+    //console.log(data);
+
+    if (value != 0) {
+      let indexOfDrawnMove = value > 0 ? this.maxSliderValue - value : data.length - 1 - this.maxSliderValue - value;
+
+      let move = data[indexOfDrawnMove];
+      let startSquare = parseInt(move[0].split(", ")[0]);
+      let endSquare = parseInt(move[0].split(", ")[1]);
+      let pieceImage = d3.select(".point" + startSquare).select("img").attr("src");
+      //console.log(pieceImage);
+      d3.select(".point" + endSquare).append("img")
+        .attr("class", "move")
+        .attr("src", pieceImage)
+        .style("width", squareSize + "px")
+        .style("height", squareSize + "px")
+        .style("position", "absolute");
+
+      // remove original piece
+      d3.selectAll(".point" + startSquare).selectAll("img")
+        .style("display", "none");
+      this.lastPieceRemoved = startSquare;
+    }
+    
   }    
 }

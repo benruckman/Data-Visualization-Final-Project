@@ -37,5 +37,16 @@ fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
 
 fetchJSONFile('data/BestOpenings.json', function (data) {
   const board = new ChessBoard(data);
-  board.renderChessBoard();
+  board.renderChessBoard(0);
+
+  // Set up slider functionality
+  let slider = d3.select("input[type=range]");
+
+  slider.on("input", function() {
+    //console.log(this.value);
+    let selectedValue = +this.value; // Parse slider value as integer
+    board.renderChessBoard(selectedValue);
+    
+  });
 });
+

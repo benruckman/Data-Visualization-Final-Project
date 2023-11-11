@@ -1,13 +1,65 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chess Statistics</title>
-  </head>
-  <body>
-    <h1>Welcome to the best Chess Statistics Website you've ever seen!</h1>
-    <p>It's super awesome I promise.</p>
-    <a href="Visualizations.html">See the visualizations!</a>
-    <p>Here's a picture of a chess picture:</p>
-    <img src="https://i.imgur.com/9AIS2IX.png" alt="A... chess piece?">
-  </body>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Chess Statistics</title>
+        <link rel="icon" href="favicon.ico">
+
+        <!-- Custom styles for this template -->
+        <!-- <link href="dashboard.css" rel="stylesheet"> -->
+        <link href="charts.css" rel="stylesheet">
+        
+        <script src="components/header.js" type="text/javascript" defer></script>
+        <!-- <script src="components/sidebar.js" type="text/javascript" defer></script> -->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="js/ChessBoard.js"></script>
+        <script src="js/script.js"></script>
+        
+        
+    </head>
+    <body>
+        <our-header></our-header>
+        <!-- <our-sidebar></our-sidebar> -->
+
+        <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"> -->
+            <div class="row">
+                <div class="chart column">
+                  <h2>Opening Move Win rate</h2>
+                  <div id="CategoricalBarChart-div"></div>
+                </div>
+          
+                <div class="column">
+                  <div class="row" style="justify-content: center;">
+                    <div class="boardDataSelection">
+                      <label for="dataSelection">Select Dataset:</label>
+                      <select name="dataSelection" id="dataSelection">
+                        <option value="javascript">Most Popular Moves</option>
+                        <option value="python">Best Moves</option>
+                      </select>
+                    </div>
+                  </div>
+          
+                  <div class="row">
+                    <div class="range"><input type="range" orient="vertical" value="0" min="-5" max="5"></div> 
+                    <div id="chess-board"></div>
+                  </div>
+                </div>
+          
+            </div>
+        <!-- </main>  -->
+
+        <!-- Bootstrap core JavaScript ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>feather.replace()</script>
+            
+        
+
+    </body>
 </html>

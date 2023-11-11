@@ -37,16 +37,22 @@ fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
 
 fetchJSONFile('data/BestOpenings.json', function (data) {
   const board = new ChessBoard(data);
-  board.renderChessBoard(0);
+  board.renderChessBoard(5, "mostPopularMoves");
 
   // Set up slider functionality
   let slider = d3.select("input[type=range]");
+  let dataSelection = d3.select("#dataSelection");
+  
+  slider.on("input", () => {
+    //console.log(slider.node().value);
+    let selectedValue = +slider.node().value; // Parse slider value as integer
+    board.renderChessBoard(selectedValue, dataSelection.node().value);
+  });
 
-  slider.on("input", function() {
-    //console.log(this.value);
-    let selectedValue = +this.value; // Parse slider value as integer
-    board.renderChessBoard(selectedValue);
-    
+  dataSelection.on("change", () => {
+    //console.log(dataSelection.node().value);
+    //console.log("Slider value: " + slider.node().value);
+    board.renderChessBoard(+slider.node().value, dataSelection.node().value);
   });
 });
 

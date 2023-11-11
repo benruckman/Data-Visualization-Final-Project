@@ -21,34 +21,36 @@
     <div class="row">
       <div id="pie-chart" class="column"></div>
 
-      <div class="chart column">
-        <h2>Game length outcomes of 50 games</h2>
-        <div id="HistogramChart-div"></div>
+    <div class="chart column">
+      <h2>Game length outcomes of 50 games</h2>
+      <div id="HistogramChart-div"></div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="chart column">
+      <h2>Opening Move Win rate</h2>
+      <div id="CategoricalBarChart-div"></div>
+    </div>
+
+    <!-- chessboard visualization -->
+    <div class="column">
+      <!-- list dropdown -->
+      <div class="row" style="justify-content: center;">
+        <div class="boardDataSelection">
+          <label for="dataSelection">Select Dataset:</label>
+          <select name="dataSelection" id="dataSelection">
+            <option value="mostPopularMoves" selected="selected">Most Popular Moves</option>
+            <option value="bestMoves">Best Moves</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="range"><input type="range" orient="vertical" value="0" min="-5" max="5"></div> 
+        <div id="chess-board"></div>
       </div>
     </div>
-    
-    <div class="row">
-      <div class="chart column">
-        <h2>Opening Move Win rate</h2>
-        <div id="CategoricalBarChart-div"></div>
-      </div>
-
-      <div class="column">
-        <div class="row" style="justify-content: center;">
-          <div class="boardDataSelection">
-            <label for="dataSelection">Select Dataset:</label>
-            <select name="dataSelection" id="dataSelection">
-              <option value="javascript">Most Popular Moves</option>
-              <option value="python">Best Moves</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="range"><input type="range" orient="vertical" value="0" min="-5" max="5"></div> 
-          <div id="chess-board"></div>
-        </div>
-      </div>
 
     </div>
   </div>

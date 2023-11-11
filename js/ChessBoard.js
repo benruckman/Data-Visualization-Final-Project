@@ -12,7 +12,7 @@ class ChessBoard {
   /**
    * Function that renders the chessboard
    */
-  renderChessBoard(value) {
+  renderChessBoard(value, sortingType) {
     // remove all previous moves
     d3.selectAll('.move').remove();
 
@@ -95,18 +95,29 @@ class ChessBoard {
     
     // Convert the JSON object to an array of objects
     const data = Object.entries(this.openings[0]);
-    // Sort the array based on the win_percentage property in descending order
-    data.sort((a, b) => b[1].count - a[1].count);
+    if (sortingType == "mostPopularMoves") {
+      // Sort the array based on the win_percentage property in descending order
+      data.sort((a, b) => b[1].count - a[1].count);
+    } else if (sortingType == "bestMoves") {
+      data.sort((a, b) => b[1].win_percentage - a[1].win_percentage);
+    }
+    
     //console.log(data);
 
+    // only draw a new piece if the slider isn't at the middle
     if (value != 0) {
+      //console.log(value);
+      // determine the index we need in the sorted list of moves
       let indexOfDrawnMove = value > 0 ? this.maxSliderValue - value : data.length - 1 - this.maxSliderValue - value;
-
+      //console.log(indexOfDrawnMove);
       let move = data[indexOfDrawnMove];
+      //console.log(move);
       let startSquare = parseInt(move[0].split(", ")[0]);
       let endSquare = parseInt(move[0].split(", ")[1]);
       let pieceImage = d3.select(".point" + startSquare).select("img").attr("src");
       //console.log(pieceImage);
+
+      // add the piece to the end square
       d3.select(".point" + endSquare).append("img")
         .attr("class", "move")
         .attr("src", pieceImage)
@@ -114,10 +125,15 @@ class ChessBoard {
         .style("height", squareSize + "px")
         .style("position", "absolute");
 
-      // remove original piece
+      // remove original piece from the starting square
       d3.selectAll(".point" + startSquare).selectAll("img")
         .style("display", "none");
       this.lastPieceRemoved = startSquare;
+
+      // Draw move info
+      d3.select("#moveInfo").text("Move: " + String.fromCharCode(97 + endSquare % 8) + (parseInt(endSquare / 8) + 1) + "\nWin Rate: " + move[1].win_percentage + "\n# of Games: " + move[1].count);
+    } else {
+      d3.select("#moveInfo").text("Move:\nWin Rate:\n# of Games:");
     }
     
   }    

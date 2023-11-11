@@ -100,3 +100,7 @@ input[type=range][orient=vertical] {
 .boardDataSelection {
     margin: 20px;
 }
+
+#moveInfo {
+    margin-left: 10px;
+  }

@@ -24,30 +24,25 @@
         <!-- <our-sidebar></our-sidebar> -->
 
         <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"> -->
-            <div class="row">
-                <div class="chart column">
-                  <h2>Opening Move Win rate</h2>
-                  <div id="CategoricalBarChart-div"></div>
-                </div>
-          
-                <div class="column">
-                  <div class="row" style="justify-content: center;">
-                    <div class="boardDataSelection">
-                      <label for="dataSelection">Select Dataset:</label>
-                      <select name="dataSelection" id="dataSelection">
-                        <option value="javascript">Most Popular Moves</option>
-                        <option value="python">Best Moves</option>
-                      </select>
-                    </div>
-                  </div>
-          
-                  <div class="row">
-                    <div class="range"><input type="range" orient="vertical" value="0" min="-5" max="5"></div> 
-                    <div id="chess-board"></div>
-                  </div>
-                </div>
-          
+          <div class="row">
+            <!-- list dropdown -->
+            <div class="row" style="justify-content: center;">
+              <div class="boardDataSelection">
+                <label for="dataSelection">Select Dataset:</label>
+                <select name="dataSelection" id="dataSelection">
+                  <option value="mostPopularMoves" selected="selected">Most Popular Moves</option>
+                  <option value="bestMoves">Best Moves</option>
+                </select>
+              </div>
             </div>
+    
+            <!-- slider -->
+            <div class="range"><input type="range" orient="vertical" value="5" min="-5" max="5"></div> 
+            <!-- actual chessboard -->
+            <div id="chess-board"></div>
+            <!-- move info -->
+            <pre id="moveInfo"></pre>
+          </div>
         <!-- </main>  -->
 
         <!-- Bootstrap core JavaScript ================================================== -->

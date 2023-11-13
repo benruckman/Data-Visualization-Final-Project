@@ -45,12 +45,13 @@ def test_get_all_file_paths():
 
 def test_get_all_file_paths_for_each_month():
     paths = all_file_paths[:-4]
-    start_year = 2017
-    start_month = 0
+    start_year = 2018
+    start_month = 4
     for year in range(start_year, 2024):
         for month in range(start_month, 13):
-            if year == start_year and month <= start_month:
+            if year == start_year and month < start_month:
                 continue
+
             i = (year - 2013) * 12 + month - 1
             print(i)
             aggregation = optimized_get_aggregate_first_moves(paths[i])

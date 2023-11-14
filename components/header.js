@@ -4,14 +4,17 @@ class Header extends HTMLElement {
   }
   connectedCallback() {
     this.innerHTML = `
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <nav class="navbar">
         <div>
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Dashboard</a>
-        <a class="nav-link" href="visualizations.html">Chess Board</a>
-        <a class="nav-link" href="visualizations.html">Pie Chart</a>
-        <a class="nav-link" href="visualizations.html">Histogram</a>
-        <a class="nav-link" href="visualizations.html">Bar Chart</a>
+        <ul>
+        <li><a href="/">Dashboard</a></li>
+        <li><a class="nav-link" href="#chess-board">Chess Board</a></li>
+        <li><a class="nav-link" href="#pie-chart">Pie Chart</a></li>
+        <li><a class="nav-link" href="#HistogramChart-div">Histogram</a></li>
+        <li><a class="nav-link" href="#CategoricalBarChart-div">Bar Chart</a></li>
+        </ul>
         </div>
+
     </nav>`;
   }
 }

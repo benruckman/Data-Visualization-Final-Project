@@ -44,7 +44,7 @@ class PieChart {
         .innerRadius(0))
         .attr("fill", function(d, i) { return colorScale(i); })
         .attr("stroke-width", "1px")
-        .attr("stroke", "magenta") // Add a stroke for better separation
+        .attr("stroke", "gray") // Add a stroke for better separation
 
     // Add labels with improved positioning
     arc.append("text")
@@ -56,12 +56,12 @@ class PieChart {
             return "translate(" + centroid + ")";
         })
         .attr("text-anchor", "middle")
-        .attr("fill", "White")
+        .attr("fill", "black")
         .attr("font-family","Helvetica")
         .attr("font-weight", 900)
-        .attr("stroke-width", "1px")
-        .attr("stroke", "red")
-        .attr("font-size", ".8em")
+        .attr("stroke-width", "0.25px")
+        .attr("stroke", "white")
+        .attr("font-size", "0.9em")
         .text(function(d) {
             return `${d.data.outcome}: ${(d.data.frequency * 100).toFixed(2)}%`;
         });

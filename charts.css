@@ -8,6 +8,7 @@ h2 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 
 .column {
@@ -104,3 +105,35 @@ input[type=range][orient=vertical] {
 #moveInfo {
     margin-left: 10px;
   }
+
+/* Style for the navbar */
+.navbar {
+    position: fixed; /* Stick to the top of the screen */
+    top: 0;
+    width: 100%;
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+    /* Add a shadow for depth */
+}
+
+    /* Style for the navbar links */
+    .navbar ul {
+        list-style: none; /* Remove default list styles */
+        display: flex; /* Arrange links horizontally */
+        justify-content: space-around; /* Distribute links evenly */
+    }
+
+    .navbar a {
+        text-decoration: none; /* Remove underline from links */
+        color: #fff; /* Text color for links */
+    }
+
+        /* Change link color on hover */
+        .navbar a:hover {
+            color: #00f;
+        }
+
+body {
+    margin: 0;
+    padding: 0;
+}

@@ -8,10 +8,10 @@ class Header extends HTMLElement {
         <div>
         <ul>
         <li><a href="/">Dashboard</a></li>
-        <li><a class="nav-link" href="#chess-board">Chess Board</a></li>
-        <li><a class="nav-link" href="#pie-chart">Pie Chart</a></li>
-        <li><a class="nav-link" href="#HistogramChart-div">Histogram</a></li>
-        <li><a class="nav-link" href="#CategoricalBarChart-div">Bar Chart</a></li>
+        <li><a class="nav-link" href="chess-board.html">Chess Board</a></li>
+        <li><a class="nav-link" href="pie-chart.html">Pie Chart</a></li>
+        <li><a class="nav-link" href="histogram-chart.html">Histogram</a></li>
+        <li><a class="nav-link" href="categorical-bar-chart.html">Bar Chart</a></li>
         </ul>
         </div>
 

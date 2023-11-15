@@ -7,18 +7,23 @@
         <title>Chess Statistics</title>
         <link rel="icon" href="favicon.ico">
 
-        <!-- Custom styles for this template -->
-        <!-- <link href="dashboard.css" rel="stylesheet"> -->
         <link href="charts.css" rel="stylesheet">
         
         <script src="components/header.js" type="text/javascript" defer></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="js/PieChart.js"></script>
+        <script src="js/script.js"></script>
         
         
     </head>
     <body>
         <our-header></our-header>
-          <div class="row">
-            <h1>Insert Dashboard Here</h1>
-          </div>
+        <div class="row">
+        <!-- list dropdown -->
+            <div class="column">
+                <h2>Color Win Rate</h2>
+                <div id="pie-chart"></div>
+            </div>
+        </div>
     </body>
 </html>

@@ -131,7 +131,7 @@ class ChessBoard {
       this.lastPieceRemoved = startSquare;
 
       // Draw move info
-      d3.select("#moveInfo").text("Move: " + String.fromCharCode(97 + endSquare % 8) + (parseInt(endSquare / 8) + 1) + "\nWin Rate: " + move[1].win_percentage + "\n# of Games: " + move[1].count);
+      d3.select("#moveInfo").text("Move: " + String.fromCharCode(97 + endSquare % 8) + (parseInt(endSquare / 8) + 1) + "\nWin Rate: " + move[1].win_percentage.toFixed(3) + "\n# of Games: " + move[1].count);
     } else {
       d3.select("#moveInfo").text("Move:\nWin Rate:\n# of Games:");
     }

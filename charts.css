@@ -98,9 +98,7 @@ input[type=range][orient=vertical] {
     height: 400px;
     width: 100px;
 }
-.range {
-    color: #78b851
-}
+
 
 .boardDataSelection {
     margin: 20px;
@@ -140,4 +138,11 @@ input[type=range][orient=vertical] {
 body {
     margin: 0;
     padding: 0;
+}
+
+.dash-text {
+    margin: 100px auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }

@@ -11,14 +11,14 @@ file_paths = [
 ]
 
 all_file_paths = [
-    chess_path / "lichess_pgns" / f"lichess_db_standard_rated_{year}-{format_num_2_digits(month)}.pgn" for year in range(2013, 2024) for month in range(1, 13)
+    chess_path / "lichess_pgns" / f"lichess_db_standard_rated_{year}-{format_num_2_digits(month)}.pgn"
+    for year in range(2013, 2024)
+    for month in range(1, 13)
 ]
 
 
 def test_get_1000_first_moves_2013_01():
-    first_moves, aggregation = get_first_moves(
-        [all_file_paths[0]], num=1000, aggregate=True, all=False
-    )
+    first_moves, aggregation = get_first_moves([all_file_paths[0]], num=1000, aggregate=True, all=False)
     (chess_path / "first_moves" / "1000_2013_01.json").write_text(json.dumps(first_moves, indent=2))
     (chess_path / "aggregation_of_first_moves" / "aggregation_1000_2013_01.json").write_text(
         json.dumps(aggregation, indent=2)
@@ -55,14 +55,32 @@ def test_get_all_file_paths_for_each_month():
             i = (year - 2013) * 12 + month - 1
             print(i)
             aggregation = optimized_get_aggregate_first_moves(paths[i])
-            (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").write_text(json.dumps(aggregation, indent=2))
+            (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").write_text(
+                json.dumps(aggregation, indent=2)
+            )
             i = i + 1
 
 
 def test_get_1000_first_moves_optimized_2013_01():
-    aggregation = optimized_get_aggregate_first_moves(
-        all_file_paths[0], num_games=1000
-    )
+    aggregation = optimized_get_aggregate_first_moves(all_file_paths[0], num_games=1000)
     (chess_path / "aggregation_of_first_moves" / "aggregation_1000_2013_01.json").write_text(
         json.dumps(aggregation, indent=2)
     )
+
+
+def test_aggregate_the_aggregated_data_into_years():
+    years = [2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    for year in years:
+        aggregation = {}
+        for month in range(1, 13):
+            aggregation_of_month = json.loads(
+                (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").read_text()
+            )
+            for move, count in aggregation_of_month.items():
+                if move in aggregation:
+                    aggregation[move] += count
+                else:
+                    aggregation[move] = count
+        (chess_path / "aggregation_of_first_moves" / "all" / "years" / f"{year}.json").write_text(
+            json.dumps(aggregation, indent=2)
+        )

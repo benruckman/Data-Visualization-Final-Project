@@ -69,18 +69,41 @@ def test_get_1000_first_moves_optimized_2013_01():
 
 
 def test_aggregate_the_aggregated_data_into_years():
-    years = [2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    years = [2013, 2014, 2015, 2017, 2018, 2019]
+    all_years_aggregation = {}
     for year in years:
         aggregation = {}
         for month in range(1, 13):
-            aggregation_of_month = json.loads(
+            aggregation_of_month: dict = json.loads(
                 (chess_path / "aggregation_of_first_moves" / "all" / f"{year}-{month}.json").read_text()
             )
-            for move, count in aggregation_of_month.items():
+            for move in aggregation_of_month:
                 if move in aggregation:
-                    aggregation[move] += count
+                    aggregation[move]["count"] += aggregation_of_month[move]["count"]
+                    aggregation[move]["wins"] += aggregation_of_month[move]["wins"]
                 else:
-                    aggregation[move] = count
+                    aggregation[move] = {}
+                    aggregation[move]["count"] = aggregation_of_month[move]["count"]
+                    aggregation[move]["wins"] = aggregation_of_month[move]["wins"]
+            
+        for move in aggregation:
+            aggregation[move]["win_percentage"] = aggregation[move]["wins"] / aggregation[move]["count"]
         (chess_path / "aggregation_of_first_moves" / "all" / "years" / f"{year}.json").write_text(
             json.dumps(aggregation, indent=2)
         )
+
+        for move in aggregation:
+            if move in all_years_aggregation:
+                all_years_aggregation[move]["count"] += aggregation[move]["count"]
+                all_years_aggregation[move]["wins"] += aggregation[move]["wins"]
+            else:
+                all_years_aggregation[move] = {}
+                all_years_aggregation[move]["count"] = aggregation[move]["count"]
+                all_years_aggregation[move]["wins"] = aggregation[move]["wins"]
+
+    for move in all_years_aggregation:
+        all_years_aggregation[move]["win_percentage"] = all_years_aggregation[move]["wins"] / all_years_aggregation[move]["count"]
+    (chess_path / "aggregation_of_first_moves" / "all" / "years" / "all_years.json").write_text(
+        json.dumps(all_years_aggregation, indent=2)
+    )
+

@@ -4,7 +4,7 @@ class ChessBoard {
    * @param {json[]} json - array of json objects with outcome and frequency fields
    */
   constructor(json) {
-    this.openings = json;
+    this.yearData = json;
     this.maxSliderValue = 5;
     this.lastPieceRemoved = null;
   }
@@ -12,7 +12,7 @@ class ChessBoard {
   /**
    * Function that renders the chessboard
    */
-  renderChessBoard(value, sortingType) {
+  renderChessBoard(value, sortingType, yearIndex) {
     // remove all previous moves
     d3.selectAll('.move').remove();
 
@@ -94,7 +94,8 @@ class ChessBoard {
 
     
     // Convert the JSON object to an array of objects
-    const data = Object.entries(this.openings[0]);
+    console.log(this.yearData[yearIndex]);
+    const data = Object.entries(this.yearData[yearIndex]);
     if (sortingType == "mostPopularMoves") {
       // Sort the array based on the win_percentage property in descending order
       data.sort((a, b) => b[1].count - a[1].count);
@@ -130,11 +131,26 @@ class ChessBoard {
         .style("display", "none");
       this.lastPieceRemoved = startSquare;
 
+      let years = ["2013","2014","2015","2017","2018","2019"];
       // Draw move info
-      d3.select("#moveInfo").text("Move: " + String.fromCharCode(97 + endSquare % 8) + (parseInt(endSquare / 8) + 1) + "\nWin Rate: " + move[1].win_percentage.toFixed(3) + "\n# of Games: " + move[1].count);
+      d3.select("#moveInfo").text("Move: " + this.getMoveFromStartAndEndNums(move[0]) + "\nWin Rate: " + move[1].win_percentage.toFixed(3) + "\n# of Games: " + move[1].count + "\nYear: " + years[yearIndex]);
     } else {
-      d3.select("#moveInfo").text("Move:   \nWin Rate:      \n# of Games:   ");
+      d3.select("#moveInfo").text("Move:   \nWin Rate:      \n# of Games:   " + "\nYear:    ");
     }
     
-  }    
+  } 
+  
+  getMoveFromStartAndEndNums(str) {
+    let arr = str.split(", ");
+
+    let pieceType = "";
+    switch (arr[0]) {
+      case "1":
+      case "6":
+        pieceType = "N";
+        break;
+    }
+
+    return pieceType + String.fromCharCode(97 + arr[1] % 8) + (parseInt(arr[1] / 8) + 1);
+  }
 }

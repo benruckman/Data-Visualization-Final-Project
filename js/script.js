@@ -56,3 +56,36 @@ fetchJSONFile('data/BestOpenings.json', function (data) {
   });
 });
 
+// ******* DATA LOADING *******
+// We took care of that for you
+async function loadData () {
+  const countryChampions = await d3.csv('data/countryChampions.csv');
+  const mapData = await d3.json('data/world.json');
+  return { countryChampions, mapData };
+}
+
+// ******* STATE MANAGEMENT *******
+// This should be all you need, but feel free to add to this if you need to 
+// communicate across the visualizations
+const globalApplicationState = {
+  selectedCountry: null,
+  countryChampions: null,
+  mapData: null,
+  worldMap: null,
+};
+
+//******* APPLICATION MOUNTING *******
+loadData().then((loadedData) => {
+  console.log('Here is the imported data:', loadedData.countryChampions);
+
+  // Store the loaded data into the globalApplicationState
+  globalApplicationState.countryChampions = loadedData.countryChampions;
+  globalApplicationState.mapData = loadedData.mapData;
+
+  // Creates the view objects with the global state passed in 
+  const worldMap = new WorldChampionMap(globalApplicationState);
+
+  globalApplicationState.worldMap = worldMap;
+});
+
+

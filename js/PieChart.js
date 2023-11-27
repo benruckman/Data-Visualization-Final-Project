@@ -55,7 +55,7 @@ class PieChart {
         .attr("fill", "black")
         .attr("font-family", "Helvetica")
         .attr("font-weight", 900)
-        .attr("stroke-width", "0.25px")
+        .attr("stroke-width", "0.5px")
         .attr("stroke", "white")
         .attr("font-size", "0.9em")
         .text(function (d) {

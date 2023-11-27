@@ -45,7 +45,7 @@ def test_get_all_file_paths():
 
 def test_get_all_file_paths_for_each_month():
     paths = all_file_paths[:-4]
-    start_year = 2019
+    start_year = 2016
     start_month = 1
     for year in range(start_year, 2024):
         for month in range(start_month, 13):
@@ -69,7 +69,7 @@ def test_get_1000_first_moves_optimized_2013_01():
 
 
 def test_aggregate_the_aggregated_data_into_years():
-    years = [2013, 2014, 2015, 2017, 2018, 2019]
+    years = [2013, 2014, 2015, 2016, 2017, 2018, 2019]
     all_years_aggregation = {}
     for year in years:
         aggregation = {}

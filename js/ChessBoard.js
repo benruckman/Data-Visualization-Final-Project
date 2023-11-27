@@ -131,9 +131,9 @@ class ChessBoard {
         .style("display", "none");
       this.lastPieceRemoved = startSquare;
 
-      let years = ["2013","2014","2015","2017","2018","2019"];
+      let years = ["2013","2014","2015","2016","2017","2018","2019"];
       // Draw move info
-      d3.select("#moveInfo").text("Move: " + this.getMoveFromStartAndEndNums(move[0]) + "\nWin Rate: " + move[1].win_percentage.toFixed(3) + "\n# of Games: " + move[1].count + "\nYear: " + years[yearIndex]);
+      d3.select("#moveInfo").text("Move: " + this.getMoveFromStartAndEndNums(move[0]) + "\nWin Rate: " + move[1].win_percentage.toFixed(3) + "\n# of Games: " + (move[1].count).toLocaleString("en-US") + "\nYear: " + years[yearIndex]);
     } else {
       d3.select("#moveInfo").text("Move:   \nWin Rate:      \n# of Games:   " + "\nYear:    ");
     }

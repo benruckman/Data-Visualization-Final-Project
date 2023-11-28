@@ -8,3 +8,5 @@ lichess_db_standard_rated*
 too_large*
 backend/data/lichess/first_moves/all/
 .vscode
+.DS_Store
+.vs

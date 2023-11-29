@@ -18,7 +18,7 @@ class HistogramChart {
         const CHART_HEIGHT = 250;
         const MARGIN = { left: 70, bottom: 20, top: 20, right: 20 };
         const ANIMATION_DURATION = 300;
-
+        console.log(this.data)
         let histogramChartSvg;
         histogramChartSvg = d3
             .select("#HistogramChart-div")

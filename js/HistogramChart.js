@@ -4,7 +4,9 @@ class HistogramChart {
      * @param {Array} json - array of JSON objects with length field
      */
     constructor(json) {
-        this.data = json;
+        this.data = json.flatMap(({ value, freq }) =>
+            Array.from({ "length": freq }, () => value)
+        );
     }
 
     /**
@@ -30,31 +32,19 @@ class HistogramChart {
 
         // Parse the 'length' field of each data point as integers
         const parsedData = this.data.map(d => parseInt(d.length));
-        const maxMoves = d3.max(parsedData)
 
-        // Get the maximum frequency value from the histogram data
-        
-
-        // Calculate histogram data
-        const histogramData = d3.histogram()
-            .value(d => d)
-            .domain([0, maxMoves])
-            .thresholds(50)(parsedData);
-
-        
-        const maxFrequency = d3.max(histogramData, d => d.length);
-        
+        const histogramData = d3.histogram()(this.data)
 
         // X axis
         const x = d3
             .scaleLinear()
-            .domain([0, maxMoves])
+            .domain(d3.extent(this.data))
             .range([0, CHART_WIDTH - MARGIN.left - MARGIN.right]);
 
         // Y axis
         const y = d3
             .scaleLinear()
-            .domain([0, maxFrequency]) // Set the domain to the maximum frequency value
+            .domain([0, d3.max(histogramData, d=> d.length)]) // Set the domain to the maximum frequency value
             .nice()
             .range([CHART_HEIGHT - MARGIN.top - MARGIN.bottom, 0]);
 
@@ -65,18 +55,18 @@ class HistogramChart {
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => x(d.x0))
+            .attr("x", d => x(d.x0) + 1)
             .attr("y", d => y(d.length))
-            .attr("width", d => x(d.x1) - x(d.x0) - 1)
+            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => CHART_HEIGHT - MARGIN.top - MARGIN.bottom - y(d.length));
 
         bars
             .transition()
             .duration(ANIMATION_DURATION)
-            .attr("x", d => x(d.x0))
+            .attr("x", d => x(d.x0) + 1)
             .attr("y", d => y(d.length))
-            .attr("width", d => x(d.x1) - x(d.x0) - 1)
-            .attr("height", d => CHART_HEIGHT - MARGIN.top - MARGIN.bottom - y(d.length));
+            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr("height", d => y(0) - y(d.length));
 
         bars.exit().remove();
 
@@ -106,11 +96,13 @@ class HistogramChart {
         histogramChartSvg
             .append("text")
             .attr("class", "y-axis-label")
-            .attr("x", -CHART_HEIGHT / 2 + 10)
+            .attr("x", -CHART_HEIGHT / 2 + 5)
             .attr("y", -MARGIN.left / 2 - 20) // Adjust the horizontal position as needed
             .attr("transform", "rotate(-90)")
             .style("text-anchor", "middle")
             .text("Number of Games");
     }
+
+
 
 }

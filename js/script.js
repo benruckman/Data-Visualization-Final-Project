@@ -43,7 +43,7 @@ fetchJSONFile('data/GameOutcomes.json', function (data) {
   pie.renderPieChart();
 });
 
-fetchJSONFile('data/GameLengths.json', function (data) {
+fetchJSONFile('data/histogram.json', function (data) {
   const histogram = new HistogramChart(data);
   histogram.renderHistogramChart();
 });

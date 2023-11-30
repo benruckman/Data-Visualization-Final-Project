@@ -43,7 +43,7 @@ fetchJSONFile('data/GameOutcomes.json', function (data) {
   pie.renderPieChart();
 });
 
-fetchJSONFile('data/GameLengths.json', function (data) {
+fetchJSONFile('data/LengthFrequencies.json', function (data) {
   const histogram = new HistogramChart(data);
   histogram.renderHistogramChart();
 });
@@ -59,6 +59,7 @@ async function loadChessBoardData() {
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2013.json'),
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2014.json'),
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2015.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2016.json'),
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2017.json'),
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2018.json'),
     fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2019.json'),

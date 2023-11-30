@@ -7,7 +7,6 @@ class Header extends HTMLElement {
     <nav class="navbar">
         <div>
         <ul>
-        <li><a href="/">Dashboard</a></li>
         <li><a class="nav-link" href="chess-board.html">Chess Board</a></li>
         <li><a class="nav-link" href="pie-chart.html">Pie Chart</a></li>
         <li><a class="nav-link" href="histogram-chart.html">Histogram</a></li>

@@ -18,15 +18,16 @@
     </head>
     <body>
         <our-header></our-header>
-        <div class="row">
-        <!-- list dropdown -->
-            <div class="column">
-                <h2>Color Win Rate</h2>
-                <div class="row">
-                    <!-- slider -->
-                    <div class="range"><input type="range" orient="vertical" value="5" min="0" max="5"></div> 
+        <div style="display: flex; flex-direction: row; justify-content: center; margin: 3em">
+            <div style="display: flex; flex-direction: column; margin: 2em">
+                <h2>Color Win Rate Per Month of 2013</h2>
                     <div id="pie-chart"></div>
-                </div>
+                    <!-- slider -->
+                    <div class="range"><input id="monthSlider" type="range" style="width: 100%" orient="horizontal" value="0" min="0" max="11"></div> 
+            </div>
+            <div style="display: flex; flex-direction: column; margin: 2em">
+                <p style="width: 20%">This pie chart represents the average color win rate per month in the year of 2013 on lichess.org. Use the slider to view different months. You'll notice that the values are very similar month to month, the large number of games played lead to these stable rates.</p>
+                <p id="monthLabel"></p>
             </div>
         </div>
     </body>

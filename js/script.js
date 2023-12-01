@@ -38,9 +38,19 @@ function fetchJSONFilePromise(path) {
 
 // call fetchJSONFile then build and render a tree
 // this is the function executed as a callback when parsing is done
-fetchJSONFile('data/GameOutcomes.json', function (data) {
+fetchJSONFile('backend/data/lichess/win_percentages.json', function (data) {
+
+  // Set up slider functionality
+  let monthSlider = d3.select("#monthSlider");
+
   const pie = new PieChart(data);
-  pie.renderPieChart();
+  pie.renderPieChart(+monthSlider.node().value);
+
+  monthSlider.on("input", () => {
+    let selectedMonthValue = +monthSlider.node().value;
+    pie.renderPieChart(selectedMonthValue);
+  });
+
 });
 
 fetchJSONFile('data/LengthFrequencies.json', function (data) {

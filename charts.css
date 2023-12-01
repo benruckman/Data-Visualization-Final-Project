@@ -52,7 +52,7 @@ h2 {
 
 /* style of histogram charts */
 .histogram rect {
-    fill: rgb(79, 175, 211);
+    fill: #5cd34f;
 }
 
 .histogram .bar:hover {

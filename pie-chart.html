@@ -19,16 +19,18 @@
     <body>
         <our-header></our-header>
         <div style="display: flex; flex-direction: row; justify-content: center; margin: 3em">
-            <div style="display: flex; flex-direction: column; margin: 2em">
+            <div style="display: flex; flex-direction: column; margin: 2em; width: 30%">
                 <h2>Color Win Rate Per Month of 2013 Lichess.org</h2>
-                    <div id="pie-chart"></div>
-                    <!-- slider -->
-                    <div class="range"><input id="monthSlider" type="range" style="width: 100%" orient="horizontal" value="0" min="0" max="11"></div> 
+                <div style="margin: 0 auto" id="pie-chart"></div>
+                <!-- slider -->
+                <div class="range"><input id="monthSlider" type="range" style="width: 100%; margin: 0 auto" orient="horizontal" value="0" min="0" max="11"></div>
+                <div style="display: flex; flex-direction: column; margin: 2em">
+                    <p id="monthLabel" style="margin: 0 auto"></p>
+                    <p>This pie chart represents the average color win rate per month in the year of 2013 on lichess.org. Use the slider to view different months. You'll notice that the values are very similar month to month, the large number of games played lead to these stable rates.</p>
+
+                </div>
             </div>
-            <div style="display: flex; flex-direction: column; margin: 2em">
-                <p style="width: 20%">This pie chart represents the average color win rate per month in the year of 2013 on lichess.org. Use the slider to view different months. You'll notice that the values are very similar month to month, the large number of games played lead to these stable rates.</p>
-                <p id="monthLabel"></p>
-            </div>
+            
         </div>
     </body>
 </html>

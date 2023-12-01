@@ -4,136 +4,150 @@ class CategoricalBarChart {
    * @param {Array} json - array of JSON objects with length field
    */
   constructor(json) {
-    this.data = json;
+    this.yearData = json;
+    this.CHART_WIDTH = 1000;
+    this.CHART_HEIGHT = 250;
+    this.MARGIN = { left: 50, bottom: 50, top: 20, right: 20 };
+
+    this.initializeChart();
   }
 
   /**
-   * Function that renders the categorical bar chart.
+   * Function that initializes the categorical bar chart.
    */
-  renderCategoricalBarChart() {
-    // Constants for the chart that would be useful.
-    const CHART_WIDTH = 1000;
-    const CHART_HEIGHT = 250;
-    const MARGIN = { left: 50, bottom: 50, top: 20, right: 20 };
-
-    let categoricalBarChartSvg;
-    categoricalBarChartSvg = d3
+  initializeChart() {
+    this.categoricalBarChartSvg = d3
       .select("#CategoricalBarChart-div")
       .append("svg")
-      .attr("width", CHART_WIDTH + MARGIN.left + MARGIN.right)
-      .attr("height", CHART_HEIGHT + MARGIN.top + MARGIN.bottom)
+      .attr("width", this.CHART_WIDTH + this.MARGIN.left + this.MARGIN.right)
+      .attr("height", this.CHART_HEIGHT + this.MARGIN.top + this.MARGIN.bottom)
       .append("g")
-      .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")")
+      .attr("transform", "translate(" + this.MARGIN.left + "," + this.MARGIN.top + ")")
       .attr("id", "CategoricalBarChart-svg")
       .attr("class", "categorical-bar-chart");
 
-    // Extract opening moves and their data
-    const openingMoves = Object.keys(this.data);
-    openingMoves.sort((a, b) => this.data[b].win_percentage - this.data[a].win_percentage); // Sort by win rate
-    const totalGames = openingMoves.reduce((acc, move) => acc + this.data[move].count, 0);
-
     // X axis
-    const x = d3
-      .scaleBand()
-      .domain(openingMoves)
-      .range([0, CHART_WIDTH - MARGIN.left - MARGIN.right])
-      .padding(0.1);
+    this.x = d3.scaleBand().range([0, this.CHART_WIDTH - this.MARGIN.left - this.MARGIN.right]).padding(0.1);
 
     // Y axis
-    const y = d3
-      .scaleLinear()
-      .domain([0, .6]) // Win rate ranges from 0 to 1
-      .nice()
-      .range([CHART_HEIGHT - MARGIN.top - MARGIN.bottom, 0]);
-
-    // Bars
-    const bars = categoricalBarChartSvg.selectAll(".bar").data(openingMoves);
-
-    let renamedData = this.data;
-
-    // Add hover effect and tooltip using separate function
-    function handleMouseOver(d) {
-      const bar = d3.select(this);
-      bar.attr("fill", "lightgray"); // Change color on hover
-      console.log(renamedData);
-      console.log(d.target.__data__);
-      const winRate = (renamedData[d.target.__data__].win_percentage * 100).toFixed(2);
-      tooltip.transition().duration(200).style("opacity", 0.9);
-      tooltip.html(`Win Rate: ${winRate}%`)
-        .style("left", (d.x || d.pageX) + "px")  // Use d.x or d.pageX
-        .style("top", (d.y || d.pageY - 28) + "px");  // Use d.y or d.pageY
-    }
-
-    function handleMouseOut() {
-      const bar = d3.select(this);
-      bar.attr("fill", "black"); // Revert color on mouseout
-      tooltip.transition().duration(500).style("opacity", 0);
-    }
-
-    bars
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => x(d))
-      .attr("width", d => x.bandwidth())
-      .attr("y", d => y(this.data[d].win_percentage))
-      .attr("height", d => CHART_HEIGHT - MARGIN.top - MARGIN.bottom - y(this.data[d].win_percentage))
-      .attr("fill", "black") // Initial color
-      .on("mouseover", handleMouseOver)
-      .on("mouseout", handleMouseOut);
-
-    bars.exit().remove();
+    this.y = d3.scaleLinear().nice().range([this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top, 0]);
 
     // X axis label formatter
-    const formatXAxisLabel = (d) => {
-      return this.getMoveFromStartAndEndNums(d);
+    this.formatXAxisLabel = (d) => {
+      return this.getMoveFromStartAndEndNums(d[0]);
     };
 
     // X axis
-    categoricalBarChartSvg
+    this.categoricalBarChartSvg
       .append("g")
       .attr("class", "x-axis")
-      .attr("transform", "translate(0," + (CHART_HEIGHT - MARGIN.bottom - MARGIN.top) + ")")
-      .call(d3.axisBottom(x).tickFormat(formatXAxisLabel))
-      .selectAll("text")
-      .style("text-anchor", "middle");
-    
+      .attr("transform", "translate(0," + (this.CHART_HEIGHT - this.MARGIN.bottom - this.MARGIN.top) + ")");
+
     // Y axis
-    categoricalBarChartSvg
-      .append("g")
-      .attr("class", "y-axis")
-      .call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
+    this.categoricalBarChartSvg.append("g").attr("class", "y-axis");
 
     // X axis label
-    categoricalBarChartSvg
+    this.categoricalBarChartSvg
       .append("text")
       .attr("class", "x-axis-label")
-      .attr("x", CHART_WIDTH / 2)
-      .attr("y", CHART_HEIGHT) // Adjust the vertical position as needed
+      .attr("x", this.CHART_WIDTH / 2)
+      .attr("y", this.CHART_HEIGHT) // Adjust the vertical position as needed
       .style("text-anchor", "middle")
       .text("Opening Move (Coordinate Points)");
 
     // Y axis label
-    categoricalBarChartSvg
+    this.categoricalBarChartSvg
       .append("text")
       .attr("class", "y-axis-label")
-      .attr("x", -CHART_HEIGHT / 2)
-      .attr("y", -MARGIN.left + 10) // Adjust the horizontal position as needed
+      .attr("x", -this.CHART_HEIGHT / 2)
+      .attr("y", -this.MARGIN.left + 10) // Adjust the horizontal position as needed
       .attr("transform", "rotate(-90)")
       .style("text-anchor", "middle")
       .text("Win Rate");
 
     // Tooltip
-    const tooltip = d3
+    this.tooltip = d3
       .select("#CategoricalBarChart-div")
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
+
+    this.renderCategoricalBarChart(0);
+  }
+
+  /**
+   * Function that renders the categorical bar chart.
+   */
+  renderCategoricalBarChart(yearIndex) {
+    let years = ["2013","2014","2015","2016","2017","2018","2019"];
+    d3.select("#yearLabel").text("Year: " + years[yearIndex]);
+
+    // Extract opening moves and their data
+    const openingMoves = Object.entries(this.yearData[yearIndex]);
+    openingMoves.sort((a, b) => b[1].win_percentage - a[1].win_percentage);
+
+    this.x.domain(openingMoves);
+    this.y.domain([0, 0.6]);
+
+    // Bars
+    const bars = this.categoricalBarChartSvg.selectAll(".bar").data(openingMoves);
+
+    // Enter
+    bars
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("fill", "#2AC3EA")
+      .on("mouseover", this.handleMouseOver.bind(this))
+      .on("mouseout", this.handleMouseOut.bind(this));
+
+    // Update
+    bars
+      .merge(bars)
+      .transition()
+      .duration(500)
+      .attr("x", (d) => this.x(d))
+      .attr("width", (d) => this.x.bandwidth())
+      .attr("y", (d) => this.y(this.yearData[yearIndex][d[0]].win_percentage))
+      .attr(
+        "height",
+        (d) =>
+          this.CHART_HEIGHT -
+          this.MARGIN.bottom -
+          this.MARGIN.top -
+          this.y(this.yearData[yearIndex][d[0]].win_percentage)
+      );
+
+    // Exit
+    bars.exit().remove();
+
+    // X axis
+    this.categoricalBarChartSvg.select(".x-axis").call(d3.axisBottom(this.x).tickFormat(this.formatXAxisLabel));
+
+    // Y axis
+    this.categoricalBarChartSvg.select(".y-axis").call(d3.axisLeft(this.y).ticks(5).tickFormat(d3.format(".0%")));
+  }
+
+  handleMouseOver(d) {
+    const bar = d3.select(d.target);
+    bar.attr("fill", "lightgray"); // Change color on hover
+    const winRate = (d.target.__data__[1].win_percentage * 100).toFixed(2);
+    const numGames = d.target.__data__[1].count.toLocaleString("en-US");
+    this.tooltip.transition().duration(200).style("opacity", 0.9);
+    this.tooltip
+      .html(`Games Played: ${numGames}<br>Win Rate: ${winRate}%`)
+      .style("left", d.pageX + "px")
+      .style("top", d.pageY - 28 + "px");
+  }
+
+  handleMouseOut(d) {
+    const bar = d3.select(d.target);
+    bar.attr("fill", "#2AC3EA"); // Revert color on mouseout
+    this.tooltip.transition().duration(500).style("opacity", 0);
   }
 
   getMoveFromStartAndEndNums(str) {
     let arr = str.split(", ");
-
     let pieceType = "";
     switch (arr[0]) {
       case "1":
@@ -141,7 +155,6 @@ class CategoricalBarChart {
         pieceType = "N";
         break;
     }
-
     return pieceType + String.fromCharCode(97 + arr[1] % 8) + (parseInt(arr[1] / 8) + 1);
   }
 }

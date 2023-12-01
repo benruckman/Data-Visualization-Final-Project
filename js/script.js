@@ -58,10 +58,34 @@ fetchJSONFile('data/LengthFrequencies.json', function (data) {
   histogram.renderHistogramChart();
 });
 
-fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
-  const openingMoveWinRate = new CategoricalBarChart(data);
-  openingMoveWinRate.renderCategoricalBarChart();
-});
+// fetchJSONFile('data/OpeningMoveWinRate2013-1.json', function (data) {
+//   const openingMoveWinRate = new CategoricalBarChart(data);
+//   openingMoveWinRate.renderCategoricalBarChart();
+// });
+
+async function loadCategoricalBarChartData() {
+  const firstMovesYears = await Promise.all([
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2013.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2014.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2015.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2016.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2017.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2018.json'),
+    fetchJSONFilePromise('backend/data/lichess/aggregation_of_first_moves/all/years/2019.json'),
+  ]);
+  const openingMoveWinRate = new CategoricalBarChart(firstMovesYears);
+  openingMoveWinRate.renderCategoricalBarChart(0);
+  
+  // Set up slider functionality
+  let yearSlider = d3.select("#yearSlider");
+
+  yearSlider.on("input", () => {
+    let selectedYearValue = +yearSlider.node().value;
+    openingMoveWinRate.renderCategoricalBarChart(selectedYearValue);
+  });
+}
+
+loadCategoricalBarChartData();
 
 //-----------for chessboard------------
 async function loadChessBoardData() {

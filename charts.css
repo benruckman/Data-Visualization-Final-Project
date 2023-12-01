@@ -61,7 +61,7 @@ h2 {
 
 /* style of bar charts */
 .bar-chart rect {
-    fill: rgb(79, 175, 211);
+    fill: #2AC3EA;
 }
 
 .bar-chart .hovered {

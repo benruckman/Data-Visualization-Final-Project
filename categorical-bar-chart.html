@@ -21,8 +21,13 @@
         <div class="row">
         <!-- list dropdown -->
             <div class="chart column">
-                <h2>Opening Move Win rate</h2>
+                <h2>Opening Move Win Rate by Year Lichess.org</h2>
                 <div id="CategoricalBarChart-div"></div>
+                <!-- slider for years-->
+                <div class="range" style="margin-top: 2em;">
+                    <input id="yearSlider" style="width: 100%" type="range" orient="horizontal" value="0" min="0" max="6">
+                  </div>
+                  <p id="yearLabel" style="text-align: center;"></p>
             </div>
         </div>
     </body>

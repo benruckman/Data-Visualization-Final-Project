@@ -11,7 +11,6 @@ class Header extends HTMLElement {
         <li><a class="nav-link" href="pie-chart.html">Pie Chart</a></li>
         <li><a class="nav-link" href="histogram-chart.html">Histogram</a></li>
         <li><a class="nav-link" href="categorical-bar-chart.html">Bar Chart</a></li>
-        <li><a class="nav-link" href="world-champion-map.html">World Champion Map</a></li>
         </ul>
         </div>
 
